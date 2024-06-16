@@ -1,0 +1,38 @@
+-- booleans
+! true  = |x> |y> x
+! false = |x> |y> y
+
+-- boolean logic
+! not   = |x>     x false true
+! and   = |x> |y> (x true false) y false
+
+-- basic control flow constructs
+! ifelse = |cond> |then> |else> cond then else
+! if     = |cond> |then> ifelse cond then nil -- nil is builtin
+
+-- halts the program
+halt
+
+-- display rules
+~ true  = "true"
+~ false = "false"
+
+-- printing
+? true     -- prints "true"
+? not true -- prints "false"
+? ifelse false (not true) (and true false) -- prints "false"
+-- ? is just a normal (though builtin) lambda:
+! hello = |x> x
+~ hello = "hello"
+? if false (? hello) -- prints nothing
+-- shortcut for brevity:
+"Hello, World!"      -- prints "Hello, World!"
+
+-- only named results get rules applied
+? |x> x    -- prints "{ |x> x }", not "hello"
+
+-- ...except for integers
+! succ = |x> |f> |g> f (x f g)
+! one  = |f> |g> f g
+! two  = succ one
+! add  = |x> |y> |f> |g> x f (y f g)
